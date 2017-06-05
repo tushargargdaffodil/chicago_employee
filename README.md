@@ -22,7 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+employees = ChicagoEmployee::Employee.all
+
+#find by department
+employees =  ChicagoEmployee::Employee.department("Department_param")
+
+#highly paid
+employee = ChicagoEmployee::Employee.highest_paid
 
 ## Development
 
