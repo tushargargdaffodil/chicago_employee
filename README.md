@@ -24,8 +24,9 @@ Or install it yourself as:
 
 employees = ChicagoEmployee::Employee.all
 
-#find by department
-employees =  ChicagoEmployee::Employee.department("Department_param")
+# find employess
+employees =  ChicagoEmployee::Employee.department("key", "value")
+ for example anyone want to get the employees having department police, then key will be department, value will be police. 
 
 #highly paid
 employee = ChicagoEmployee::Employee.highest_paid

@@ -1,6 +1,8 @@
 require "chicago_employee/version"
 require "unirest"
 module ChicagoEmployee
+  #Define the api for getting the employees data
+  ChicagoAPI = "https://data.cityofchicago.org/resource/xzkq-xp2w.json"
   class Employee
     attr_reader :title, :department, :name, :salary, :last_name, :first_name 
 
@@ -14,14 +16,14 @@ module ChicagoEmployee
     end
 
     def self.all
-     Unirest.get("https://data.cityofchicago.org/resource/xzkq-xp2w.json")
+     Unirest.get(ChicagoAPI)
       .body
       .map { |employee| Employee.new(employee) }
     end
 
-    def self.department(parameter_option)
+    def self.find(key,option)
       ruby_data = []
-      bulk_data = Unirest.get("https://data.cityofchicago.org/resource/xzkq-xp2w.json?department=#{parameter_option}").body
+      bulk_data = Unirest.get(ChicagoAPI+'?'+key+"=#{option}").body
       bulk_data.each do |employee|
         ruby_data << Employee.new(employee)
       end
@@ -29,7 +31,7 @@ module ChicagoEmployee
     end
 
     def self.highest_paid
-      employees = Unirest.get("https://data.cityofchicago.org/resource/xzkq-xp2w.json")
+      employees = Unirest.get(ChicagoAPI)
        .body
        .map { |employee| Employee.new(employee) }
       employees.max_by { |employee| employee.salary }
